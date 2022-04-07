@@ -197,7 +197,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath() 'assets/videos/$key.$VIDEO_EXT';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -274,7 +274,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath() 'assets/fonts/$key';
+		return 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -381,9 +381,8 @@ class Paths
 		return currentTrackedSounds.get(gottenPath);
 	}
 	
-	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return mods/' + key;
+		return 'mods/' + key;
 	}
 	
 	inline static public function modsFont(key:String) {
@@ -398,8 +397,16 @@ class Paths
 		return modFolders('videos/' + key + '.' + VIDEO_EXT);
 	}
 
-	inline static public function modsSounds(path:String, key:String) {
-		return modFolders(path + '/' + key + '.' + SOUND_EXT);
+	inline static public function modsMusic(key:String) {
+		return modFolders('music/' + key + '.' + SOUND_EXT);
+	}
+
+	inline static public function modsSounds(key:String) {
+		return modFolders('sounds/' + key + '.' + SOUND_EXT);
+	}
+
+	inline static public function modsSongs(key:String) {
+		return modFolders('songs/' + key + '.' + SOUND_EXT);
 	}
 
 	inline static public function modsImages(key:String) {
@@ -414,18 +421,6 @@ class Paths
 		return modFolders('images/' + key + '.txt');
 	}
 
-	inline static public function modsShaderFragment(key:String, ?library:String)
-	{
-		return modFolders('shaders/'+key+'.frag');
-	}
-	inline static public function modsShaderVertex(key:String, ?library:String)
-	{
-		return modFolders('shaders/'+key+'.vert');
-	}
-	inline static public function modsAchievements(key:String) {
-		return modFolders('achievements/' + key + '.json');
-	}
-
 	static public function modFolders(key:String) {
 		if(currentModDirectory != null && currentModDirectory.length > 0) {
 			var fileToCheck:String = mods(currentModDirectory + '/' + key);
@@ -433,15 +428,16 @@ class Paths
 				return fileToCheck;
 			}
 		}
-		return mods/' + key;
+		return 'mods/' + key;
 	}
+	
 	static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
-		var modsFolder:String = mods();
+		var modsFolder:String = Paths.mods();
 		if(FileSystem.exists(modsFolder)) {
 			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
-				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {
+				if (sys.FileSystem.isDirectory(path) && !Paths.ignoreModFolders.contains(folder) && !list.contains(folder)) {
 					list.push(folder);
 				}
 			}
