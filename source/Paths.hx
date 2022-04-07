@@ -251,20 +251,16 @@ class Paths
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
-		
-		if(OpenFlAssets.exists(getPath(key, type))) {
+		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
 			return true;
 		}
 		return false;
 	}
-
 	inline static public function getSparrowAtlas(key:String, ?library:String):FlxAtlasFrames
 	{
-
 		return FlxAtlasFrames.fromSparrow((imageLoaded != null ? imageLoaded : image(key, library)), (xmlExists ? File.getContent(modsXml(key)) : file('images/$key.xml', library)));
 		#else
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
-		#end
 	}
 
 
