@@ -197,7 +197,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath'assets/videos/$key.$VIDEO_EXT';
+		return Paths.getPreloadPath 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -253,12 +253,12 @@ class Paths
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = Paths.getPreloadPath(key, currentLevel);
+				levelPath = Paths.getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = Paths.getPreloadPath(key, 'shared');
+			levelPath = Paths.getLibraryPathForce(key, 'shared');
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);
 		}
@@ -274,7 +274,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath'assets/fonts/$key';
+		return Paths.getPreloadPath 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -383,7 +383,7 @@ class Paths
 	
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return Paths.getPreloadPath'mods/' + key;
+		return mods/' + key;
 	}
 	
 	inline static public function modsFont(key:String) {
@@ -433,7 +433,7 @@ class Paths
 				return fileToCheck;
 			}
 		}
-		return Paths.getPreloadPath'mods/' + key;
+		return mods/' + key;
 	}
 	static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
