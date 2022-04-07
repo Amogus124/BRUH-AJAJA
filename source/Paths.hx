@@ -197,7 +197,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath 'assets/videos/$key.$VIDEO_EXT';
+		return Paths.getPreloadPath() 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -274,7 +274,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Paths.getPreloadPath 'assets/fonts/$key';
+		return Paths.getPreloadPath() 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
